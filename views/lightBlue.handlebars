@@ -31,15 +31,7 @@
                 <div class="col-lg-6 left-column">
 
                     <!-- Navbar -->
-                    <ul class="nav">
-                            <li class="nav-item"><a href="#">Home</a></li>
-                    </ul>
                     
-                    <!-- Contact Form Title -->
-                    <div class="tittle-container text-center">
-                        <h2 class="tittle">Get in Touch</h2>
-                        <h4 class="subtitle">We'd love hear from you</h4>
-                    </div>
 
                     <!-- Form -->
                     <form class="contact-form" method="POST" action="send" enctype="multipart/form-data">
@@ -47,7 +39,7 @@
 
                             <!-- Name -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Your Name</label>
+                                <label class="col-lg-4 col-form-label">Nombres y apellidos</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="name" class="form-control form-control-sm" required>
                                 </div>
@@ -55,7 +47,7 @@
 
                             <!-- Phone -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Phone</label>
+                                <label class="col-lg-4 col-form-label">Numero de celular</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="phone" class="form-control form-control-sm" required>
                                 </div>
@@ -63,7 +55,7 @@
 
                             <!-- Email -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Email Address</label>
+                                <label class="col-lg-4 col-form-label">Correo electrónico</label>
                                 <div class="col-lg-8">
                                     <input type="email" name="email" class="form-control form-control-sm" required>
                                 </div>
@@ -71,7 +63,7 @@
                             
                             <!-- Product Category -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Product Category</label>
+                                <label class="col-lg-4 col-form-label">Categoría de producto (Tecnología, cosmetología, electrodomésticos, etc)</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="product_category" class="form-control form-control-sm" required>
                                 </div>
@@ -79,7 +71,7 @@
 
                             <!-- Product Reference -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Product Reference</label>
+                                <label class="col-lg-4 col-form-label">Enlace o referencia del producto</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="product_reference" class="form-control form-control-sm" required>
                                 </div>
@@ -88,7 +80,7 @@
                         
                             <!-- Photo Reference -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Photo Reference</label>
+                                <label class="col-lg-4 col-form-label">Foto del producto (opcional)</label>
                                 <div class="col-lg-8">
                                     <input type="file" name="photo_references" class="form-control form-control-sm" accept="image/*">
                                 </div>
@@ -98,7 +90,7 @@
 
                             <!-- Quantity -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Quantity</label>
+                                <label class="col-lg-4 col-form-label">Cantidad</label>
                                 <div class="col-lg-8">
                                     <input type="number" name="quantity" class="form-control form-control-sm" required>
                                 </div>
@@ -106,7 +98,7 @@
 
                             <!-- Has Supplier -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Has Supplier?</label>
+                                <label class="col-lg-4 col-form-label">¿Cuentas con proveedor?</label>
                                 <div class="col-lg-8">
                                     <select class="form-control form-control-sm" name="has_supplier" required>
                                         <option value="Yes">Yes</option>
@@ -117,7 +109,7 @@
 
                             <!-- City -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">City</label>
+                                <label class="col-lg-4 col-form-label">Ciudad</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="city" class="form-control form-control-sm" required>
                                 </div>
@@ -125,15 +117,15 @@
 
                             <!-- Message -->
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Message</label>
+                                <label class="col-lg-4 col-form-label">Mensaje</label>
                                 <div class="col-lg-8">
-                                    <textarea class="form-control form-control-sm" name="message" rows="5" required></textarea>
+                                    <textarea class="form-control form-control-sm" name="message" rows="5"></textarea>
                                 </div>
                             </div>
-
+                    
                             <!-- Submit Button -->
                             <div class="text-right">
-                                <input class="btn btn-submit" type="submit" value="Submit">
+                                <input class="btn btn-submit" type="submit" value="Enviar formulario">
                             </div>
 
                     </form>
@@ -141,26 +133,7 @@
                 <!-- End Left Column -->
                 
                 <!-- Right Column -->
-                <div class="col-lg-4 right-column">
-                    
-                    <!-- Company Info -->
-                    <div class="contact-info">
-                    <h3>Contact Info</h3>
-                        <p><i class="fas fa-map-marker-alt"></i>&nbsp; 80 Guild Street, London, N7 8EP</p>
-                        <p><i class="fas fa-phone-alt"></i>&nbsp; +44 7700 900041</p>
-                        <p><i class="fas fa-envelope"></i>&nbsp; support@example.com</p>
-                    </div>
-                    
-                    <!-- Social Icons -->
-                    <div class="social">
-                        <div class="text-center center-block">
-                            <a href="#"><i class="icon fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="icon fab fa-twitter"></i></i></a>
-                            <a href="#"><i class="icon fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right Column -->
+             
 
             </div>
         </div>
