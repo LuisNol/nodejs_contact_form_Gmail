@@ -45,27 +45,43 @@ app.get("/", (req, res) => {
 
 // Ruta para manejar el envío del formulario con la carga de la imagen
 app.post("/send", upload.single("photo_references"), (req, res) => {
-  //console.log('Archivo recibido:', req.file);  // Verifica que el archivo se está cargando correctamente
-
-  // Plantilla del correo
+  // Plantilla del correo que se enviará al administrador
   const output = `
-        <p>You have a message</p>
-        <h3>Contact Details</h3>
-        <p>Name: ${req.body.name}</p>
-        <p>Phone: ${req.body.phone}</p>
-        <p>Email: ${req.body.email}</p>
-        <p>Product Category: ${req.body.product_category}</p>
-        <p>Product Reference: ${req.body.product_reference}</p>
-        <p>Photo Reference :<p>
-        <img src="cid:photo_references" alt="Photo Reference" style="width:100%; max-width:300px; height:auto;">
-        <p>Quantity: ${req.body.quantity}</p>
-        <p>Has Supplier: ${req.body.has_supplier}</p>
-        <p>City: ${req.body.city}</p>
-        <h3>Message</h3>
-        <p>${req.body.message}</p>
-      
-        
-    `;
+    <p>You have a message</p>
+    <h3>Contact Details</h3>
+    <p>Name: ${req.body.name}</p>
+    <p>Phone: ${req.body.phone}</p>
+    <p>Email: ${req.body.email}</p>
+    <p>Product Category: ${req.body.product_category}</p>
+    <p>Product Reference: ${req.body.product_reference}</p>
+    <p>Photo Reference :</p>
+    <img src="cid:photo_references" alt="Photo Reference" style="width:100%; max-width:300px; height:auto;">
+    <p>Quantity: ${req.body.quantity}</p>
+    <p>Has Supplier: ${req.body.has_supplier}</p>
+    <p>City: ${req.body.city}</p>
+    <h3>Message</h3>
+    <p>${req.body.message}</p>
+  `;
+
+  // Plantilla del correo de confirmación que se enviará al cliente
+  const clientConfirmation = `
+    <p>Gracias Sr(a). ${req.body.name},</p>
+    <p>Hemos recibido su correo con éxito. Con los siguientes datos:</p>
+    <h3>Detalles del contacto:</h3>
+    <p><strong>Nombre:</strong> ${req.body.name}</p>
+    <p><strong>Teléfono:</strong> ${req.body.phone}</p>
+    <p><strong>Correo Electrónico:</strong> ${req.body.email}</p>
+    <p><strong>Categoría del Producto:</strong> ${req.body.product_category}</p>
+    <p><strong>Referencia del Producto:</strong> ${req.body.product_reference}</p>
+    <p><strong>Foto Referencia:</strong></p>
+    <img src="cid:photo_references" alt="Photo Reference" style="width:100%; max-width:300px; height:auto;">
+    <p><strong>Cantidad:</strong> ${req.body.quantity}</p>
+    <p><strong>Proveedor:</strong> ${req.body.has_supplier}</p>
+    <p><strong>Ciudad:</strong> ${req.body.city}</p>
+    <h3>Mensaje:</h3>
+    <p>${req.body.message}</p>
+    <p>Nos pondremos en contacto con usted pronto.</p>
+  `;
 
   // Alerta en caso de éxito
   const successAlert = `
@@ -99,8 +115,8 @@ app.post("/send", upload.single("photo_references"), (req, res) => {
     },
   });
 
-  // Configuración del correo electrónico (remitente, destinatario, asunto, contenido)
-  let mailOptions = {
+  // Configuración del correo que será enviado al administrador
+  let mailOptionsAdmin = {
     from: config.from, // Remitente
     to: config.to, // Destinatario
     subject: config.subject, // Asunto del correo
@@ -114,14 +130,37 @@ app.post("/send", upload.single("photo_references"), (req, res) => {
     ],
   };
 
-  // Enviar el correo con el archivo adjunto
-  transporter.sendMail(mailOptions, (error, info) => {
+  // Configuración del correo que será enviado al cliente
+  let mailOptionsClient = {
+    from: config.from, // Remitente
+    to: req.body.email, // Correo del cliente
+    subject: "Confirmación de contacto", // Asunto del correo
+    html: clientConfirmation, // Contenido HTML del correo
+    attachments: [
+      {
+        filename: req.file ? req.file.originalname : "no-image.jpg", // Nombre del archivo adjunto
+        path: req.file ? req.file.path : "", // Path del archivo cargado
+        cid: "photo_references", // ID para referenciar la imagen en el correo
+      },
+    ],
+  };
+
+  // Enviar el correo al administrador
+  transporter.sendMail(mailOptionsAdmin, (error, info) => {
     if (error) {
       console.log(error); // Log para depurar el error
       return res.render(config.theme, { msg: failAlert }); // Enviar la alerta de error
     }
 
-    // Enviar la alerta de éxito
-    res.render(config.theme, { msg: successAlert });
+    // Enviar el correo de confirmación al cliente
+    transporter.sendMail(mailOptionsClient, (error, info) => {
+      if (error) {
+        console.log(error); // Log para depurar el error
+        return res.render(config.theme, { msg: failAlert }); // Enviar la alerta de error
+      }
+
+      // Enviar la alerta de éxito
+      res.render(config.theme, { msg: successAlert });
+    });
   });
 });
